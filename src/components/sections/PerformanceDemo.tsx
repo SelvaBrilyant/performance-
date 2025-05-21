@@ -1,15 +1,14 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { useOptimizedState } from '@/hooks/useOptimizedState';
 
 // Performance improvement demo
 export default function PerformanceDemo() {
   const [tabValue, setTabValue] = useState("regular");
   const [regularCounter, setRegularCounter] = useState(0);
-  const [optimizedCounter, useOptimizedCounter] = useOptimizedState(0);
+  const [optimizedCounter, setOptimizedCounter] = useState(0);
   
   // Track render count for demonstration purposes
   const [regularRenderCount, setRegularRenderCount] = useState(0);
@@ -43,8 +42,8 @@ export default function PerformanceDemo() {
   
   // Optimized increment function with useCallback
   const incrementOptimized = useCallback(() => {
-    useOptimizedCounter(prev => prev + 1);
-  }, [useOptimizedCounter]);
+    setOptimizedCounter(prev => prev + 1);
+  }, []);
   
   // Simulate render tracking
   useEffect(() => {
